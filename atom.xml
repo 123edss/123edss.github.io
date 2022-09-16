@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-09-15T12:27:44.762Z</updated>
+  <updated>2022-09-16T14:18:57.000Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/posts/0.html"/>
+    <id>http://example.com/posts/0.html</id>
+    <published>2022-09-16T14:18:39.605Z</published>
+    <updated>2022-09-16T14:18:57.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>title: 工作流笔记</p><h2 id="数据库笔记"><a href="#数据库笔记" class="headerlink" title="数据库笔记"></a>数据库笔记</h2><h3 id="1-日期时间间隔操作"><a href="#1-日期时间间隔操作" class="headerlink" title="1. 日期时间间隔操作"></a><strong>1.</strong> 日期时间间隔操作</h3><p>当前时间减去7分钟的时间<br>select sysdate,sysdate - interval ‘7’ MINUTE FROM dual;<br>当前时间减去7小时的时间<br>select sysdate,sysdate - interval ‘7’ HOUR FROM dual;<br>当前时间减去7天的时间<br>select sysdate,sysdate - interval ‘7’ DAY FROM dual;<br>当前时间减去7月的时间<br>select sysdate,sysdate - interval ‘7’ MONTH FROM dual;<br>当前时间减去7年的时间<br>select sysdate,sysdate - interval ‘7’ YEAR FROM dual;  </p><h3 id="2、关于-gt"><a href="#2、关于-gt" class="headerlink" title="2、关于&gt;"></a>2、<strong>关于&gt;</strong></h3><p>在xml中，”&lt;”、”&gt;”、”&amp;”等字符是不能直接存入的，否则xml语法检查时会报错，如果想在xml中使用这些符号，必须将其转义为实体。</p><p><img src="file:///C:\Users\86130\AppData\Local\Temp\ksohtml14612\wps1.jpg" alt="img"> </p><h3 id="3、数据库关键函数或字段"><a href="#3、数据库关键函数或字段" class="headerlink" title="3、数据库关键函数或字段"></a>3、<strong>数据库关键函数或字段</strong></h3><p>1、offse ：toffset 用法是 跳过几行元素</p><p> 例子：select distinict salary desc limit 1 offset 1 就是跳过第1行取第1条记录</p><p>2、start with connect by：orecal数据库提供的递归查询方法，</p><p>例子：</p><p>SELECT … FROM  + 表名<br>START WITH     + 条件1<br>CONNECT BY PRIOR  + 条件2<br>WHERE       + 条件3</p><p>条件1：是根节点的限定语句</p><p>条件2：是连接条件，其中用PRIOR表示上一条记录，用了PRIOR是向下查询，如果要向上查询就‘=’的两个参数互换，‘=’后加上PRIOR。</p><p>如：</p><p>向下查询：</p><p>START WITH BRH_ID = ‘0003’<br>CONNECT BY PRIOR BRH_ID = BRH_PARENTID</p><p>向上查询：</p><p>START WITH BRH_ID = ‘0003’<br>CONNECT BY BRH_ID = PRIOR BRH_PARENTID</p><h3 id="4、Listagg"><a href="#4、Listagg" class="headerlink" title="4、Listagg"></a>4、<strong>Listagg</strong></h3><p>初级用法：LISTAGG(XXX,XXX) WITHIN GROUP( ORDER BY XXX) 多个查询结果拼接在一起</p><p>高级用法：listagg(XXX,’,’) within GROUP (order by XXX) over (partition by XXX) rank</p><p>例子：</p><p> LISTAGG(VOT.OBJ_ATTR_NAME,’,’)WITHIN GROUP (ORDER BY VOT.OBJ_ATTR_NAME)  AS TYPE_NAME</p><p>上面的方法要group by而下面的不用</p><p>高级用法：</p><p> LISTAGG(VOT.OBJ_ATTR_NAME,’,’) WITHIN GROUP (ORDER BY VOT.OBJ_ATTR_CODE) OVER (PARTITION BY GO.ID) AS TYPE_NAME</p><h3 id="5、关于数据库的内外连接使用"><a href="#5、关于数据库的内外连接使用" class="headerlink" title="5、关于数据库的内外连接使用"></a>5、<strong>关于数据库的内外连接使用</strong></h3><p>外连接：主要分为左右连接，</p><h4 id="left-join：返回包括左表中的所有记录和右表中连接字段相等的记录"><a href="#left-join：返回包括左表中的所有记录和右表中连接字段相等的记录" class="headerlink" title="left join：返回包括左表中的所有记录和右表中连接字段相等的记录"></a>left join：返回包括左表中的所有记录和右表中连接字段相等的记录</h4><p>right join：和左连接刚好相反</p><p>内连接：inner join 或者直接使用 where条件做判断</p><p>内外连接使用主要场景：</p><p>外连接：连接的字段可以为空时使用外连接</p><p>如：员工表中有个字段是详细地址信息表的主键id，这两个表相关联时，就可以用左连接或右连接，因为在详细地址信息表中找不到某员工的地址信息也要将员工这条记录显示出来，相应的详细地址信息字段为空即可，而不能因为地址没有存在数据库里，这个员工就没了（简单理解成不重要的信息不影响整条记录的显示）</p><p>内连接：因连接表的某个字段缺少导致业务上的无法运行时，使用内连接。</p><p>如：A表中记录了该服务单的服务时间、坐席名称和录音地址等基本信息，B表中记录了该服务单的业务详情，如保险单号，车牌号，保单日期等，当显示该服务单时，要将A表与B表做内连接，因为少这两表任何一个表，该服务单都不算完整</p><p>Ps：内连接速度会比外连接速度快，因此能用内连接就不用外连接。</p><h3 id="6、Group-by"><a href="#6、Group-by" class="headerlink" title="6、Group by"></a>6、<strong>Group by</strong></h3><p>GROUP BY子句在SELECT语句中用于按行或表达式的值将行组合到分组汇总的行中。 GROUP BY子句为每个分组返回第一行。与使用“<a href="http://www.yiibai.com/oracle/oracle-select-distinct.html">DISTINCT</a>”语句有一定的相似效果。</p><p>Ps：切记group by返回的是分组的第一行，于max和min函数共同使用会有问题发生：</p><p><img src="file:///C:\Users\86130\AppData\Local\Temp\ksohtml14612\wps2.jpg" alt="img"> </p><p>上表查出按class分组查年龄最大的人信息，</p><p>Sql：select id,name,max(age),class from test group by class</p><p>结果：</p><p><img src="file:///C:\Users\86130\AppData\Local\Temp\ksohtml14612\wps3.jpg" alt="img"> </p><p>虽然是最大年龄但是该年龄的信息对不上，这是因为用了group by后返回的是分组后的第一条数据。</p><p>解决方法：1、先按arge排序再group by分组</p><p>Sql:</p><p>select <em> from (  select </em> from test order by age desc) as b  group by class;</p><p>​     </p><p>2、先找出最大age再通过子查询查与表id关联</p><p>Sql:</p><p>select * from test t where t.age = (select max(age) from test where id = t.id ) as b order by age desc;</p><h3 id="7、Over函数的使用"><a href="#7、Over函数的使用" class="headerlink" title="7、Over函数的使用"></a>7、<strong>Over函数的使用</strong></h3><p>over()函数写法over(partition by expr2 order by expr3)，根据expr2对结果进行分区，在各分区内按照expr3进行排序；</p><p>范围:　over（order by sroce range between 5 preceding and 5 following）：窗口范围为当前行数据幅度减5加5后的范围内的。</p><p>　　over（order by sroce rows between 5 preceding and 5 following）：窗口范围为当前行前后各移动5行。</p><h3 id="8、Fetch"><a href="#8、Fetch" class="headerlink" title="8、Fetch"></a><strong>8、Fetch</strong></h3><p>在Oracle中用来限制查询返回的行数，用于order by 后面</p><p>例子：</p><p>Fetch NEXT 行数 ROWS ONLY</p><h3 id="9、case-when"><a href="#9、case-when" class="headerlink" title="9、case when"></a><strong>9、case when</strong></h3><p>case</p><p>when 条件 then 别名</p><p>when 条件 then 别名</p><p>end </p><p>例子：</p><p><img src="file:///C:\Users\86130\AppData\Local\Temp\ksohtml14612\wps4.jpg" alt="img"> </p><h3 id="10、截取时间"><a href="#10、截取时间" class="headerlink" title="10、截取时间"></a>10、<strong>截取时间</strong></h3><p>day（时间字段） 获取该时间字段的xx日</p><p>year(时间字段）  获取该时间字段的xx年</p><h3 id="11、substring-index"><a href="#11、substring-index" class="headerlink" title="11、substring_index"></a>11、<strong>substring_index</strong></h3><p>用法substring_index(字段，截取符，index)其中index若是正数则代表截取到第几个，若为负数则代表从末尾开始截取到第几个。</p><p>Ps：orecal数据库没有该函数，当可以使用substr函数代替</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;title: 工作流笔记&lt;/p&gt;
+&lt;h2 id=&quot;数据库笔记&quot;&gt;&lt;a href=&quot;#数据库笔记&quot; class=&quot;headerlink&quot; title=&quot;数据库笔记&quot;&gt;&lt;/a&gt;数据库笔记&lt;/h2&gt;&lt;h3 id=&quot;1-日期时间间隔操作&quot;&gt;&lt;a href=&quot;#1-日期时间间隔操作&quot;</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>JavaEE复习</title>
