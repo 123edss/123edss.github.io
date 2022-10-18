@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-10-18T02:27:39.000Z</updated>
+  <updated>2022-10-18T02:31:33.554Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://example.com/posts/49ef7e8e.html"/>
     <id>http://example.com/posts/49ef7e8e.html</id>
     <published>2022-10-18T02:28:24.058Z</published>
-    <updated>2022-10-18T02:27:39.000Z</updated>
+    <updated>2022-10-18T02:31:33.554Z</updated>
     
     <content type="html"><![CDATA[<h3 id="1、SpringMVC的工作流程"><a href="#1、SpringMVC的工作流程" class="headerlink" title="1、SpringMVC的工作流程"></a>1、SpringMVC的工作流程</h3><p>1、用户发送请求，DisapatchServlet接受请求</p><p>2、收到请求后DisapatchServlet调用HandlerMapping，获取对应Handler</p><p>3、如果有拦截器一并返回</p><p>4、拿到Handler后，找到handlerAdapter,通过它来访问Handler，并执行处理器</p><p>5、执行Handler的逻辑</p><p>6、Handler会返回一个ModelAndView对象给DispatchServlet</p><p>7、将获得的ModelAndView对象返回给DispatchServlet</p><p>8、请求ViewResolver解析视图，根据逻辑视图名解析成正在的View。</p><p>9、返回View给DisapatchServlet并对View进行渲染视图</p><p>10、DisapatchServlet响应回用户</p><h3 id="2、Spring中Bean有多少种scope？"><a href="#2、Spring中Bean有多少种scope？" class="headerlink" title="2、Spring中Bean有多少种scope？"></a>2、Spring中Bean有多少种scope？</h3><p>Singleton（默认scope）：单例，每一个bean只创建一个对象实例</p><p>prorotype：原型，每次对该bean请求调用都会生成各自的实例</p><p>request：请求，针对每次HTTP请求都会生成一个新的bean。表示在以此HTTP请求内有效</p><p>session：在一个http session中，一个bean定义对应一个bean实例</p><p>global session：在一个全http session中，一个bean定义对应一个bean实例。</p><p>后面三个scope只在web应用上使用</p><h3 id=""><a href="#" class="headerlink" title=" "></a> </h3>]]></content>
     
@@ -41,7 +41,7 @@
     <link href="http://example.com/posts/f11c5cdc.html"/>
     <id>http://example.com/posts/f11c5cdc.html</id>
     <published>2022-10-18T02:28:15.059Z</published>
-    <updated>2022-10-18T02:27:03.000Z</updated>
+    <updated>2022-10-18T02:31:33.553Z</updated>
     
     <content type="html"><![CDATA[<h3 id="1、MySQL的引擎"><a href="#1、MySQL的引擎" class="headerlink" title="1、MySQL的引擎"></a>1、MySQL的引擎</h3><p>   MySQL常用引擎有MyISAM和InnoDB，其中InnoDB是mysql默认的引擎。MyISAM不支持行锁，而InnoDB支持行锁。MySQL锁机制显著特点是不同引擎支持不同的锁机制。</p><h3 id="2、MySQL锁的种类"><a href="#2、MySQL锁的种类" class="headerlink" title="2、MySQL锁的种类"></a>2、MySQL锁的种类</h3><h4 id="按数据操作的颗粒度分类："><a href="#按数据操作的颗粒度分类：" class="headerlink" title="按数据操作的颗粒度分类："></a>按数据操作的颗粒度分类：</h4><p> 表级锁：开销小，加锁快；不会出现死锁；锁定粒度大，发生锁冲突的概率最高，并发度最低</p><p>行级锁：开销大，加锁慢；会出现死锁；锁定粒度小，发生锁冲突的概率最低，并发度最高</p><p>页面锁：开销和加锁时间界于表锁和行锁之间，会出现死锁；锁定粒度界于表锁和行锁之间，并发度一般。</p><h4 id="按数据操作的类型分类："><a href="#按数据操作的类型分类：" class="headerlink" title="按数据操作的类型分类："></a>按数据操作的类型分类：</h4><p>读锁（共享锁）：针对同一份数据，多个读操作可以同时进行而不会互相影响。</p><p>写锁（排他锁）：写锁只可以加一个，当前写操作没有完成前，它会阻断其他写锁和读锁。</p>]]></content>
     
@@ -61,7 +61,7 @@
     <link href="http://example.com/posts/121f6cbc.html"/>
     <id>http://example.com/posts/121f6cbc.html</id>
     <published>2022-10-18T02:28:11.903Z</published>
-    <updated>2022-10-18T02:28:05.000Z</updated>
+    <updated>2022-10-18T02:31:33.550Z</updated>
     
     <content type="html"><![CDATA[<h3 id="1、重写和重载的区别"><a href="#1、重写和重载的区别" class="headerlink" title="1、重写和重载的区别"></a>1、重写和重载的区别</h3><p>定义不同：重载是定义相同的方法名，参数不同；重写是子类重写父类的方法。</p><p>范围不同：重载是在一个类中，重写是子类与父类之间的、</p><p>多态不同：重载是编译时的多态性，重写是运行时的多态性</p><p>返回不同：重载对返回类型没有要求，而重写要求返回类型，有兼容的返回类型。</p><p>参数不同：重载的参数个数、参数类型、参数顺序可以不同，而重写子类的方法参数必须相同。</p><p>修饰不同：重载对访问修饰没有特殊要求，重写访问修饰符的限制一定要大于被重写方法的访问修饰符。</p>]]></content>
     
